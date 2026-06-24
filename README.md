@@ -5,7 +5,7 @@
 A Real-Time B2B SaaS Collaboration Workspace inspired by Slack and Notion, developed as part of the Infotact Web Development Internship.
 
 ## Features
-
+ 
 - User Authentication (JWT)
 - Workspace Management
 - Channel Management
