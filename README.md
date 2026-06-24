@@ -28,14 +28,14 @@ A Real-Time B2B SaaS Collaboration Workspace inspired by Slack and Notion, devel
 
 ### Database
 - MongoDB
-
+ 
 ### Real-Time Communication
 - Socket.IO
 - Redis
 
 ## Project Structure
 
-```
+``` 
 client/
 server/
 docs/
