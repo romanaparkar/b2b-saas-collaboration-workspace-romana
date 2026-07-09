@@ -1,32 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+
 function App() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f5f5f5",
-        fontFamily: "Arial",
-      }}
-    >
-      <h1>🚀 B2B SaaS Collaboration Workspace</h1>
-
-      <p>
-        Welcome to the Real-Time Collaboration Platform.
-      </p>
-
-      <div style={{ marginTop: "20px" }}>
-        <button style={{ marginRight: "10px" }}>
-          Login
-        </button>
-
-        <button>
-          Register
-        </button>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
