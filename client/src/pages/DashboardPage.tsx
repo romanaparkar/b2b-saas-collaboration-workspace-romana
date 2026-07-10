@@ -1,24 +1,22 @@
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
+interface Workspace {
+  id: string;
+  name: string;
+  description: string;
+}
+
 const DashboardPage = () => {
-  const workspaces = [
-    {
-      id: 1,
-      name: "Marketing Team",
-      members: 12,
-    },
-    {
-      id: 2,
-      name: "Development",
-      members: 8,
-    },
-    {
-      id: 3,
-      name: "Design",
-      members: 5,
-    },
-  ];
+  const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/workspaces")
+      .then((response) => response.json())
+      .then((data) => setWorkspaces(data))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
@@ -28,7 +26,6 @@ const DashboardPage = () => {
         <Navbar />
 
         <main className="p-8">
-
           <div className="flex items-center justify-between mb-8">
             <div>
               <h1 className="text-3xl font-bold">
@@ -50,7 +47,6 @@ const DashboardPage = () => {
           </h2>
 
           <div className="grid grid-cols-3 gap-6">
-
             {workspaces.map((workspace) => (
               <div
                 key={workspace.id}
@@ -61,7 +57,7 @@ const DashboardPage = () => {
                 </h3>
 
                 <p className="text-gray-500 mt-2">
-                  {workspace.members} Members
+                  {workspace.description}
                 </p>
 
                 <button className="mt-6 bg-slate-900 hover:bg-slate-700 text-white px-4 py-2 rounded-lg">
@@ -69,7 +65,6 @@ const DashboardPage = () => {
                 </button>
               </div>
             ))}
-
           </div>
 
           <div className="mt-10 bg-white rounded-xl shadow p-6">
@@ -83,7 +78,6 @@ const DashboardPage = () => {
               <li>📅 Meeting scheduled at 4:00 PM</li>
             </ul>
           </div>
-
         </main>
       </div>
     </div>
