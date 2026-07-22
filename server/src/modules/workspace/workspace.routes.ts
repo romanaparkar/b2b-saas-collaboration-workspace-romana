@@ -1,17 +1,15 @@
-import express from "express";
+import { Router } from "express";
 
 import {
   getWorkspaces,
   createWorkspace,
   deleteWorkspace,
-} from "../controllers/workspaceController";
+} from "./workspace.controller";
 
-const router = express.Router();
+const router = Router();
 
 router.get("/", getWorkspaces);
-
 router.post("/", createWorkspace);
-
 router.delete("/:id", deleteWorkspace);
 
 export default router;

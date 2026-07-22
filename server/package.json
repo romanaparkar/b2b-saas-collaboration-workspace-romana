@@ -2,8 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Backend application built using Node.js, Express.js and TypeScript.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,23 +1,12 @@
+/**
+ * Landing-page hero card.
+ * Presentational only — the call-to-action buttons are wired up in Phase 1
+ * (authentication) once the auth flow and routing guards exist.
+ */
 function Hero() {
   return (
-    <div
-      style={{
-        width: "500px",
-        backgroundColor: "#ffffff",
-        borderRadius: "12px",
-        padding: "50px",
-        textAlign: "center",
-        boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-      }}
-    >
-      <h1
-        style={{
-          fontSize: "42px",
-          lineHeight: "1.2",
-          marginBottom: "20px",
-          color: "#111827",
-        }}
-      >
+    <div className="w-[500px] max-w-full rounded-xl bg-white p-12 text-center shadow-lg">
+      <h1 className="mb-5 text-4xl leading-tight font-bold text-gray-900 sm:text-5xl">
         B2B SaaS
         <br />
         Collaboration
@@ -25,50 +14,16 @@ function Hero() {
         Workspace
       </h1>
 
-      <p
-        style={{
-          color: "#6b7280",
-          fontSize: "18px",
-          marginBottom: "35px",
-        }}
-      >
+      <p className="mb-9 text-lg text-gray-500">
         Collaborate with your team in real time.
       </p>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "15px",
-        }}
-      >
-        <button
-          style={{
-            backgroundColor: "#2563eb",
-            color: "white",
-            border: "none",
-            padding: "12px 28px",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontSize: "16px",
-            fontWeight: "bold",
-          }}
-        >
+      <div className="flex justify-center gap-4">
+        <button className="rounded-lg bg-blue-600 px-7 py-3 font-bold text-white transition hover:bg-blue-700">
           Login
         </button>
 
-        <button
-          style={{
-            backgroundColor: "white",
-            color: "#2563eb",
-            border: "2px solid #2563eb",
-            padding: "12px 28px",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontSize: "16px",
-            fontWeight: "bold",
-          }}
-        >
+        <button className="rounded-lg border-2 border-blue-600 bg-white px-7 py-3 font-bold text-blue-600 transition hover:bg-blue-50">
           Register
         </button>
       </div>

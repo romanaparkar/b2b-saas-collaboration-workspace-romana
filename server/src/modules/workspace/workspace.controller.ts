@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 
-let workspaces = [
+import { Workspace } from "./workspace.types";
+
+/**
+ * STUB implementation — data lives in memory and resets on restart.
+ * Replaced by MongoDB-backed, user-scoped persistence in Phase 2.
+ */
+let workspaces: Workspace[] = [
   {
     id: "1",
     name: "Marketing Team",
@@ -18,14 +24,14 @@ let workspaces = [
   },
 ];
 
-export const getWorkspaces = (req: Request, res: Response) => {
+export const getWorkspaces = (_req: Request, res: Response) => {
   res.status(200).json(workspaces);
 };
 
 export const createWorkspace = (req: Request, res: Response) => {
   const { name, description } = req.body;
 
-  const workspace = {
+  const workspace: Workspace = {
     id: Date.now().toString(),
     name,
     description,

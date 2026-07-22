@@ -1,71 +1,26 @@
+/**
+ * Login page (presentational).
+ * Form state, validation and API submission are implemented in Phase 1.
+ */
 function LoginPage() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f3f4f6",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <div
-        style={{
-          width: "400px",
-          backgroundColor: "#fff",
-          padding: "40px",
-          borderRadius: "12px",
-          boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            marginBottom: "30px",
-          }}
-        >
-          Login
-        </h2>
+    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+      <div className="w-[400px] max-w-full rounded-xl bg-white p-10 shadow-lg">
+        <h2 className="mb-8 text-center text-2xl font-semibold">Login</h2>
 
         <input
           type="email"
           placeholder="Email"
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "15px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            boxSizing: "border-box",
-          }}
+          className="mb-4 w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         <input
           type="password"
           placeholder="Password"
-          style={{
-            width: "100%",
-            padding: "12px",
-            marginBottom: "20px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            boxSizing: "border-box",
-          }}
+          className="mb-5 w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        <button
-          style={{
-            width: "100%",
-            padding: "12px",
-            backgroundColor: "#2563eb",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-            fontWeight: "bold",
-          }}
-        >
+        <button className="w-full rounded-lg bg-blue-600 py-3 font-bold text-white transition hover:bg-blue-700">
           Login
         </button>
       </div>

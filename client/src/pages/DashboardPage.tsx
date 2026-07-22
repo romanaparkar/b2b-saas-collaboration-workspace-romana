@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { apiUrl } from "../lib/api";
 
 interface Workspace {
   id: string;
@@ -12,7 +13,7 @@ const DashboardPage = () => {
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/workspaces")
+    fetch(apiUrl("/api/workspaces"))
       .then((response) => response.json())
       .then((data) => setWorkspaces(data))
       .catch((error) => console.error(error));
