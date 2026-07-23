@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import { Trash2 } from "lucide-react";
 
 import Navbar from "../components/Navbar";
@@ -15,6 +16,7 @@ const toMessage = (error: unknown, fallback: string) =>
 
 const DashboardPage = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const [workspaces, setWorkspaces] = useState<Workspace[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -199,6 +201,7 @@ const DashboardPage = () => {
 
                   <button
                     type="button"
+                    onClick={() => navigate(`/workspaces/${workspace.id}`)}
                     className="mt-6 bg-slate-900 hover:bg-slate-700 text-white px-4 py-2 rounded-lg"
                   >
                     Open Workspace

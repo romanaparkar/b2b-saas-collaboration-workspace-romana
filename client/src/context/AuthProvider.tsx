@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
+import { disconnectSocket } from "../lib/socket";
 import { tokenStorage } from "../lib/tokenStorage";
 import { authService } from "../services/authService";
 import type { LoginInput, RegisterInput, User } from "../types/auth";
@@ -66,6 +67,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const logout = useCallback(() => {
+    // Close the realtime connection before dropping the token, so the socket
+    // does not attempt a reconnect with a credential we are about to discard.
+    disconnectSocket();
     tokenStorage.clear();
     setUser(null);
   }, []);

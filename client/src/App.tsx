@@ -6,6 +6,7 @@ import DashboardPage from "./pages/DashboardPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import WorkspacePage from "./pages/WorkspacePage";
 
 function App() {
   return (
@@ -21,6 +22,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/workspaces/:workspaceId"
+            element={
+              <ProtectedRoute>
+                <WorkspacePage />
               </ProtectedRoute>
             }
           />

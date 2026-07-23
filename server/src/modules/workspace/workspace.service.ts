@@ -55,6 +55,35 @@ export const workspaceService = {
   },
 
   /**
+   * Add the user to a workspace as a regular member.
+   *
+   * The filter excludes existing members so the update is atomic — two
+   * simultaneous joins cannot produce a duplicate membership entry. Joining a
+   * workspace you already belong to is a no-op rather than an error, which
+   * keeps the client's "open by id" flow idempotent.
+   */
+  async join(workspaceId: string, userId: string): Promise<IWorkspace> {
+    const joined = await Workspace.findOneAndUpdate(
+      { _id: workspaceId, "members.user": { $ne: userId } },
+      { $push: { members: { user: userId, role: ROLES.MEMBER } } },
+      { new: true },
+    );
+
+    if (joined) {
+      return joined;
+    }
+
+    // No update happened: the workspace is missing, or the user is already in.
+    const workspace = await Workspace.findById(workspaceId);
+
+    if (!workspace) {
+      throw AppError.notFound("Workspace not found");
+    }
+
+    return workspace;
+  },
+
+  /**
    * Delete a workspace and its dependent data. Only the owner may delete.
    */
   async remove(workspaceId: string, userId: string): Promise<void> {
