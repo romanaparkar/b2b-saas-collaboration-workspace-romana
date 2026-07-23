@@ -1,32 +1,40 @@
 import { Request, Response } from "express";
 
-/**
- * STUB implementation — returns canned responses so the frontend can integrate.
- * Real password hashing (bcrypt) and JWT issuing are implemented in Phase 1.
- */
+import { asyncHandler } from "../../middleware/asyncHandler";
+import { AppError } from "../../shared/errors/AppError";
+import { authService } from "./auth.service";
 
-export const registerUser = async (req: Request, res: Response) => {
-  const { name, email } = req.body;
+/** Thin controllers: parse request -> call service -> shape response. */
+
+export const register = asyncHandler(async (req: Request, res: Response) => {
+  const result = await authService.register(req.body);
 
   res.status(201).json({
     success: true,
-    message: "User registered successfully",
-    user: {
-      name,
-      email,
-    },
+    message: "Account created successfully",
+    data: result,
   });
-};
+});
 
-export const loginUser = async (req: Request, res: Response) => {
-  const { email } = req.body;
+export const login = asyncHandler(async (req: Request, res: Response) => {
+  const result = await authService.login(req.body);
 
   res.status(200).json({
     success: true,
-    message: "Login successful",
-    token: "dummy-jwt-token",
-    user: {
-      email,
-    },
+    message: "Logged in successfully",
+    data: result,
   });
-};
+});
+
+export const me = asyncHandler(async (req: Request, res: Response) => {
+  if (!req.user) {
+    throw AppError.unauthorized();
+  }
+
+  const user = await authService.getUserById(req.user.id);
+
+  res.status(200).json({
+    success: true,
+    data: user,
+  });
+});

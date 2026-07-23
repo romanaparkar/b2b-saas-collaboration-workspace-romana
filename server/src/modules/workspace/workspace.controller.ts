@@ -1,53 +1,62 @@
 import { Request, Response } from "express";
 
-import { Workspace } from "./workspace.types";
+import { asyncHandler } from "../../middleware/asyncHandler";
+import { AppError } from "../../shared/errors/AppError";
+import { workspaceService } from "./workspace.service";
+
+/** Returns the authenticated user's id, or throws if `protect` did not run. */
+function requireUserId(req: Request): string {
+  if (!req.user) {
+    throw AppError.unauthorized();
+  }
+  return req.user.id;
+}
 
 /**
- * STUB implementation — data lives in memory and resets on restart.
- * Replaced by MongoDB-backed, user-scoped persistence in Phase 2.
+ * Express 5 types route params as `string | string[]`; our routes only ever
+ * define a single `:id`, so normalize it to a string here.
  */
-let workspaces: Workspace[] = [
-  {
-    id: "1",
-    name: "Marketing Team",
-    description: "Marketing Workspace",
-  },
-  {
-    id: "2",
-    name: "Development Team",
-    description: "Development Workspace",
-  },
-  {
-    id: "3",
-    name: "Design Team",
-    description: "Design Workspace",
-  },
-];
-
-export const getWorkspaces = (_req: Request, res: Response) => {
-  res.status(200).json(workspaces);
-};
-
-export const createWorkspace = (req: Request, res: Response) => {
-  const { name, description } = req.body;
-
-  const workspace: Workspace = {
-    id: Date.now().toString(),
-    name,
-    description,
-  };
-
-  workspaces.push(workspace);
-
-  res.status(201).json(workspace);
-};
-
-export const deleteWorkspace = (req: Request, res: Response) => {
+function getIdParam(req: Request): string {
   const { id } = req.params;
+  return Array.isArray(id) ? id[0] : id;
+}
 
-  workspaces = workspaces.filter((workspace) => workspace.id !== id);
+export const listWorkspaces = asyncHandler(async (req: Request, res: Response) => {
+  const workspaces = await workspaceService.listForUser(requireUserId(req));
 
   res.status(200).json({
+    success: true,
+    data: workspaces,
+  });
+});
+
+export const getWorkspace = asyncHandler(async (req: Request, res: Response) => {
+  const workspace = await workspaceService.getByIdForUser(
+    getIdParam(req),
+    requireUserId(req),
+  );
+
+  res.status(200).json({
+    success: true,
+    data: workspace,
+  });
+});
+
+export const createWorkspace = asyncHandler(async (req: Request, res: Response) => {
+  const workspace = await workspaceService.create(requireUserId(req), req.body);
+
+  res.status(201).json({
+    success: true,
+    message: "Workspace created successfully",
+    data: workspace,
+  });
+});
+
+export const deleteWorkspace = asyncHandler(async (req: Request, res: Response) => {
+  await workspaceService.remove(getIdParam(req), requireUserId(req));
+
+  res.status(200).json({
+    success: true,
     message: "Workspace deleted successfully",
   });
-};
+});

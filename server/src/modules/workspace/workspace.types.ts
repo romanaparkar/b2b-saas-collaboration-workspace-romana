@@ -1,11 +1,19 @@
-/**
- * Workspace domain type.
- *
- * NOTE: Plain shape for the current in-memory stub. Replaced by a Mongoose
- * schema/model (persisted, user-scoped) in Phase 2.
- */
-export interface Workspace {
-  id: string;
+import { Document, Types } from "mongoose";
+
+import { Role } from "../../shared/constants/roles";
+
+export interface WorkspaceMember {
+  user: Types.ObjectId;
+  role: Role;
+}
+
+/** Workspace document. Membership drives access control. */
+export interface IWorkspace extends Document {
+  _id: Types.ObjectId;
   name: string;
   description: string;
+  owner: Types.ObjectId;
+  members: WorkspaceMember[];
+  createdAt: Date;
+  updatedAt: Date;
 }

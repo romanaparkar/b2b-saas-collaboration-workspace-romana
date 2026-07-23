@@ -1,8 +1,6 @@
-/**
- * Landing-page hero card.
- * Presentational only — the call-to-action buttons are wired up in Phase 1
- * (authentication) once the auth flow and routing guards exist.
- */
+import { Link } from "react-router-dom";
+
+/** Landing-page hero card. */
 function Hero() {
   return (
     <div className="w-[500px] max-w-full rounded-xl bg-white p-12 text-center shadow-lg">
@@ -19,13 +17,19 @@ function Hero() {
       </p>
 
       <div className="flex justify-center gap-4">
-        <button className="rounded-lg bg-blue-600 px-7 py-3 font-bold text-white transition hover:bg-blue-700">
+        <Link
+          to="/login"
+          className="rounded-lg bg-blue-600 px-7 py-3 font-bold text-white transition hover:bg-blue-700"
+        >
           Login
-        </button>
+        </Link>
 
-        <button className="rounded-lg border-2 border-blue-600 bg-white px-7 py-3 font-bold text-blue-600 transition hover:bg-blue-50">
+        <Link
+          to="/register"
+          className="rounded-lg border-2 border-blue-600 bg-white px-7 py-3 font-bold text-blue-600 transition hover:bg-blue-50"
+        >
           Register
-        </button>
+        </Link>
       </div>
     </div>
   );
